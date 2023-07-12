@@ -40,6 +40,7 @@ function AddUser() {
                 이름
               </label>
               <input
+                required
                 type="text"
                 id="name"
                 value={name}

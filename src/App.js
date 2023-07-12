@@ -5,6 +5,7 @@ import "./App.css";
 import Home from "./pages/home";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import AddUser from "./users/AddUser";
+import EditUser from "./users/EditUser";
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
           {/* 홈페이지와 유저추가 페이지 두개를 만듬 위에는 항상 네비게이션바 */}
           <Route path="/" element={<Home />} />
           <Route path="/adduser" element={<AddUser />} />
+          <Route path="/edituser/:id" element={<EditUser />} />
         </Routes>
       </BrowserRouter>
     </div>
