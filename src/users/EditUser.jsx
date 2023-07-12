@@ -1,14 +1,28 @@
 import axios from "axios";
-import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Link, useNavigate, useParams } from "react-router-dom";
 
 function EditUser() {
   let navigate = useNavigate(); //네비게이트 객체 생성
+
+  //"/user/:id" 의 값이 "/user/123" 이면 id의 값으로 123을 받음
+
+  const { id } = useParams();
+
   const [user, SetUser] = useState({
     name: "",
     username: "",
     email: "",
   });
+
+  useEffect(() => {
+    loadUser();
+  }, []);
+
+  const loadUser = async () => {
+    const result = await axios.get(`http://localhost:8080/users/${id}`);
+    SetUser(result.data);
+  };
 
   const onInputChange = (e) => {
     SetUser({
@@ -24,7 +38,7 @@ function EditUser() {
   const onSubmit = async (e) => {
     e.preventDefault(); //기본 전송기능 중지
     //백앤드서버로 user 데이터 전송
-    await axios.post("http://localhost:8080/user", user);
+    await axios.put(`http://localhost:8080/user/${id}`, user);
     //바로 홈페이지로 이동(리스트에 새유져가 보임)
     navigate("/");
   };
